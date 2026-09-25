@@ -1,0 +1,44 @@
+{
+  "id": "TASK-XXXX",
+  "title": "Describe task",
+  "business_outcome": "Who benefits and what improves",
+  "priority": "P1",
+  "status": "BACKLOG",
+  "authorized": false,
+  "authorization": "Record authorization before READY",
+  "owner": "Product Owner",
+  "executor": null,
+  "depends_on": [],
+  "source": "docs/work/README.md",
+  "scope": [
+    "Bounded deliverable"
+  ],
+  "out_of_scope": [
+    "Unapproved deployment, pricing, permissions or external-service changes"
+  ],
+  "read_files": [
+    "docs/work/README.md"
+  ],
+  "acceptance": [
+    {
+      "id": "A1",
+      "criterion": "Observable criterion",
+      "result": "PENDING",
+      "evidence": ""
+    }
+  ],
+  "checkpoint": {
+    "updated_at": "REPLACE_WITH_ISO_TIMESTAMP",
+    "branch": "REPLACE_WITH_BRANCH",
+    "base_commit": "REPLACE_WITH_COMMIT",
+    "working_tree": "List uncommitted files",
+    "completed": [],
+    "next_action": "Concrete next action",
+    "blockers": [],
+    "validation": []
+  },
+  "release": {
+    "status": "NOT_RELEASED",
+    "evidence": ""
+  }
+}
