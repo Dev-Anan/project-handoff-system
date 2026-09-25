@@ -10,12 +10,12 @@ Use this skill to give a repository the reusable workflow introduced by commit `
 ## Set up a target repository
 
 1. Inspect its root instructions, package scripts, Git state, task trackers, and existing `docs/work/` before writing. Preserve existing ownership and task IDs. Do not treat backlog entries as authorized work.
-2. If no equivalent workflow exists, run `node <skill-dir>/scripts/install.mjs --target <absolute-repository-path> --dry-run`; review the plan, then run without `--dry-run`. The installer refuses to overwrite existing workflow files or conflicting npm scripts. If it reports a conflict, adapt the repository manually using [the portable design](references/design.md).
+2. If no equivalent workflow exists, run `node <skill-dir>/scripts/install.mjs --target <absolute-repository-path> --dry-run`; review the plan, then run without `--dry-run`. The installer refuses to overwrite existing workflow files or conflicting npm scripts. It creates adapters for common agent formats when absent; see [agent compatibility](references/agent-compatibility.md). If it reports a conflict, adapt the repository manually using [the portable design](references/design.md).
 3. Tailor the appended `AGENTS.md` section to the project's real commands and constraints. Existing instructions remain authoritative. Add project-specific read-on-demand links rather than copying Car-eService rules.
 4. Run `npm run project:check` (or `node scripts/project-workflow.mjs check`), then `npm run project:resume`. Inspect the generated `docs/project-handoff-guide.html` and replace any generic business examples if the user needs domain-specific guidance.
 5. Create task records only for actual user-authorized work. Claim before editing; checkpoint after meaningful progress. Keep release/deployment authorization separate from task completion.
 
-The installed workflow needs Node.js and Git. It works with non-Node application stacks; the installer adds a small `package.json` only when the target does not already have one. Read [the portable design](references/design.md) when adapting an existing task system or diagnosing validator failures.
+The installed workflow needs Node.js and Git. It works with non-Node application stacks; the installer adds a small `package.json` only when the target does not already have one. `AGENTS.md` remains canonical, and existing agent-specific instruction files are preserved for manual integration. Read [the portable design](references/design.md) when adapting an existing task system or diagnosing validator failures.
 
 ## Boundaries
 

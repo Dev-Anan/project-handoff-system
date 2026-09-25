@@ -46,3 +46,7 @@ npm run project:check   # structure, references, dependency cycles, evidence lin
 ```
 
 Direct Node equivalents are `node scripts/project-workflow.mjs resume|status|check`. The workflow does not depend on a browser, MCP server, hook, or a particular application stack. If multiple executors need simultaneous active tasks, agree on ownership and separate worktrees first; this registry is a convention, not an atomic lock.
+
+## Agent entrypoints
+
+`AGENTS.md` is the canonical instruction source. The installer adds small adapters for common agent formats when their files are absent: Claude Code, Gemini CLI, Copilot, Cursor, Continue, Cline, Roo Code, and Aider. Codex and Windsurf can use `AGENTS.md` directly. Existing instruction files are preserved; add a link to `AGENTS.md` manually when needed. See `docs/agent-compatibility.md` for paths, limitations, and official documentation links. For other clients, ask the agent to read `AGENTS.md` and this workflow before acting.

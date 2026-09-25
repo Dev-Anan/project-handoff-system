@@ -61,7 +61,8 @@ node ~/.codex/skills/project-handoff-system/scripts/install.mjs --target /absolu
           <tr><td><code>scripts/project-workflow.mjs</code></td><td>คำสั่งอ่านสถานะและตรวจความสอดคล้อง</td></tr>
           <tr><td><code>docs/project-handoff-guide.html</code></td><td>คู่มือนี้ ใช้สอนคน ไม่เก็บสถานะสด</td></tr>
         </tbody></table></div>
-        <p>ตัวติดตั้งเพิ่ม npm scripts ใน <code>package.json</code> และสร้างตัวชี้จาก <code>CLAUDE.md</code>/<code>GEMINI.md</code> เมื่อยังไม่มีไฟล์เหล่านั้น</p>
+        <p>ตัวติดตั้งเพิ่ม npm scripts ใน <code>package.json</code> และสร้าง adapter สำหรับ Claude Code, Gemini CLI, Copilot, Cursor, Continue, Cline, Roo Code และ Aider เมื่อยังไม่มีไฟล์เหล่านั้น ส่วน Codex และ Windsurf ใช้ <code>AGENTS.md</code> ได้โดยตรง ดู path และเอกสารอ้างอิงที่ <a href="agent-compatibility.md">ตารางรองรับ agent</a></p>
+        <div class="callout"><p><code>AGENTS.md</code> เป็นแหล่งกติกาหลักเพียงแห่งเดียว ไฟล์ agent ที่มีอยู่แล้วจะไม่ถูกเขียนทับ ให้เพิ่มลิงก์ไปยัง <code>AGENTS.md</code> ด้วยตนเอง หาก agent นั้นยังไม่ได้อ่านไฟล์นี้</p></div>
       </section>
       <section id="daily">
         <h2>ลำดับงานในแต่ละวัน</h2>

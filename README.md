@@ -8,6 +8,7 @@ This repository contains only the reusable workflow, templates, installer, desig
 
 - `skills/project-handoff-system/` — installable Codex skill, repo setup script, workflow assets, and design reference.
 - `docs/project-handoff-guide.html` — Thai guide for installation and daily use, using IBM Plex Sans Thai and IBM Plex Sans.
+- `docs/agent-compatibility.md` — supported repo-level entrypoints for Codex, Claude, Gemini, Copilot, Cursor, Windsurf, Continue, Cline, Roo Code, and Aider.
 
 ## Install the skill in Codex
 
@@ -44,6 +45,8 @@ node "${CODEX_HOME:-$HOME/.codex}/skills/project-handoff-system/scripts/install.
 ```
 
 Review the dry run and target repo diff. The installer refuses existing `docs/work/`, workflow file collisions, and conflicting npm scripts. It preserves existing agent instructions and package scripts. Tailor the appended `AGENTS.md` section with the target project's real source paths, constraints, and validation commands. Then run `npm run project:check` and `npm run project:resume`.
+
+`AGENTS.md` is the canonical instruction source. The installer adds small adapters for agent-specific formats when absent; see [agent compatibility](docs/agent-compatibility.md). Existing adapter files are preserved and need a manual link to `AGENTS.md` if they do not already load it. Tool behavior varies by product and version, so unsupported clients can be prompted to read `AGENTS.md` and `docs/work/README.md`.
 
 The workflow works with non-Node application code. Node.js and Git are required for its command line helper. Existing task systems need a deliberate authority mapping before installation.
 
