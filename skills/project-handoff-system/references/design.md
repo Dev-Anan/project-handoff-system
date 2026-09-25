@@ -1,31 +1,29 @@
-# Portable design from commit 2e8b74d
+# Workflow design
 
-## What to reproduce
+## Components
 
-| Part | Purpose | Installed location |
-| --- | --- | --- |
-| Agent entrypoint | Start every session by comparing Git and checkpoint, respect authorization, preserve unrelated edits | `AGENTS.md` section |
-| Work protocol | Defines task ownership, state transitions, evidence, and handoff | `docs/work/README.md` |
-| Task records | One JSON file owns each task status, scope, acceptance and checkpoint | `docs/work/tasks/TASK-XXXX.json` |
-| Selection pointer | Names the active task or `null`; does not duplicate status | `docs/work/current.json` |
-| Session records | Human readable evidence linked from acceptance/validation | `docs/work/sessions/*.md` |
-| CLI | Read-only resume/status/check and integrity validation | `scripts/project-workflow.mjs`, package scripts |
-| Guide | Human explanation and copyable commands | `docs/project-handoff-guide.html` |
+| Component | Responsibility |
+| --- | --- |
+| `AGENTS.md` | Brief repository-wide startup instructions and links to project rules. |
+| `docs/work/README.md` | Task states, ownership, acceptance, evidence, and handoff conventions. |
+| `docs/work/tasks/` | One task record per unit of authorized work. |
+| `docs/work/current.json` | Pointer to the selected task; never a second status database. |
+| `docs/work/sessions/` | Session notes linked from task checkpoints and validation. |
+| `scripts/project-workflow.mjs` | Read-only resume, status, and consistency checks. |
+| `docs/project-handoff-guide.html` | Human walkthrough; it does not store live task state. |
 
-The installer starts with zero tasks and a null selection. This avoids making a backlog item look authorized. To start a real task, copy `docs/work/templates/task.json` to a unique `TASK-XXXX.json`, set `authorized` from the user's instruction, fill scope and acceptance, select it in `current.json`, and claim it with `IN_PROGRESS`, executor/session, Git branch/HEAD, and an exact next action. The script accepts priorities `P1`–`P3` and states `BACKLOG`, `READY`, `IN_PROGRESS`, `VERIFY`, `BLOCKED`, `PAUSED`, `DONE`.
+The installer creates an empty task registry. A task is added only when there is real work to track. Its record captures authorization, scope, acceptance, owner, status, and checkpoints. The active pointer selects a task but does not grant permission.
 
-## Invariants worth preserving
+## Invariants
 
-- `current.json` is only a pointer; task files own status.
-- At most one task is `IN_PROGRESS` or `VERIFY`, and it must be selected.
-- `DONE` requires all acceptance entries to be `PASS`, linked evidence files, and validation entries. Release has a separate status.
-- Before handoff, update checkpoint, create a session record, link evidence, and run `project:check`.
-- The validator checks paths stay inside the repository and exist. It does not verify the contents of evidence or business approval.
-- Compare branch/HEAD and dirty files to checkpoint on every resume. A checkpoint alone cannot restore uncommitted files on another machine.
-- Existing trackers may need mapping or a coexistence rule. Do not silently create a second authority for the same work.
+- Task records own their status; the active pointer only selects one record.
+- Keep at most one task in `IN_PROGRESS` or `VERIFY` unless the repository deliberately changes that rule.
+- A completion claim needs passing acceptance checks and links to evidence. Record release separately.
+- On resume, compare the recorded branch and revision with Git and preserve uncommitted work.
+- A checkpoint should state what changed, what remains, blockers, validation performed, and the next concrete action.
+- A structural validator can check paths and required fields. It cannot determine whether a person approved work or whether evidence is truthful.
+- A workflow registry is not a lock. Concurrent work needs explicit ownership and suitable Git isolation.
 
-## Target adaptations
+## Integrating an existing tracker
 
-For repositories with an existing `AGENTS.md`, keep its current rules and append only the generic workflow pointer. Keep startup instructions short; move detailed patterns into read-on-demand docs. For repositories with an existing task system, map its status/ownership fields and decide which file is authoritative before installing. For repositories without npm, use the direct `node scripts/project-workflow.mjs resume|status|check` commands or the generated small `package.json`.
-
-The original commit also included Car-eService product constraints, a historical backlog, UX tracker links, Graphify output, Firebase hosting cache, and provider-specific context files. These do not transfer to unrelated repositories.
+Inspect its current statuses and who owns them. Decide whether to extend that system, map it to these conventions, or make one system authoritative and link the other. Avoid creating duplicate task state. Adapt commands to the repository's package manager or use `node scripts/project-workflow.mjs <resume|status|check>` directly.

@@ -3,105 +3,49 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="คู่มือสร้างระบบงานและส่งต่อระหว่าง agent ในทุกโปรเจกต์ จาก commit 2e8b74d">
-  <title>Project Handoff System · คู่มือติดตั้งและใช้งาน</title>
+  <meta name="description" content="คู่มือเลือก ติดตั้ง และปรับใช้ Project Handoff skill ใน coding agent และ repository ของคุณ">
+  <title>Project Handoff · คู่มือเริ่มต้น</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{color-scheme:light;--paper:#f6f5f0;--ink:#183034;--muted:#536667;--line:#d7ddda;--teal:#0c706a;--deep:#0c4140;--warm:#e8f3ed;--card:#fff;--code:#eaf0ed}
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:2rem}body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.78 "IBM Plex Sans Thai","IBM Plex Sans",sans-serif}a{color:var(--teal);text-underline-offset:.22em}a:hover{text-decoration-thickness:2px}:focus-visible{outline:3px solid var(--teal);outline-offset:4px}.skip{position:absolute;top:-5rem;left:1rem;background:white;padding:.5rem 1rem;z-index:10}.skip:focus{top:1rem}
-    .shell{max-width:1460px;margin:auto;display:grid;grid-template-columns:260px minmax(0,1fr)}aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;border-right:1px solid var(--line);padding:2.2rem 1.5rem}.mark{font:700 1.15rem/1.25 "IBM Plex Sans",sans-serif;letter-spacing:-.03em;color:var(--deep)}.mark span{display:block;color:var(--teal)}.small{font-size:.79rem;line-height:1.6;color:var(--muted)}nav{margin-top:2.2rem}nav a{display:block;padding:.5rem .7rem;margin:.16rem 0;text-decoration:none;border-radius:7px;color:var(--muted)}nav a:hover,nav a:focus-visible{background:var(--warm);color:var(--deep)}main{min-width:0;padding:0 clamp(1.3rem,5vw,5rem) 5rem}.hero{padding:5rem 0 3.5rem;border-bottom:1px solid var(--line)}.eyebrow{font:700 .77rem/1.2 "IBM Plex Sans",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}h1,h2,h3{font-family:"IBM Plex Sans Thai","IBM Plex Sans",sans-serif;letter-spacing:-.035em;line-height:1.26;color:var(--deep)}h1{font-size:clamp(2.45rem,5vw,4.6rem);max-width:16ch;margin:.8rem 0 1.2rem}h2{font-size:clamp(1.8rem,3vw,2.6rem);margin:0 0 1rem}h3{font-size:1.2rem;margin:1.5rem 0 .5rem}p{max-width:76ch;margin:.7rem 0 1.1rem}.lead{font-size:1.16rem;color:var(--muted);max-width:63ch}.meta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem}.pill{border:1px solid var(--line);border-radius:99px;background:var(--card);padding:.3rem .8rem;font:600 .77rem/1.5 "IBM Plex Sans",sans-serif;color:var(--deep)}section{padding:3.4rem 0;border-bottom:1px solid var(--line)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.25rem 1.4rem;box-shadow:0 3px 18px #193c3007}.card h3{margin-top:0}.card p{margin-bottom:0}.step{font:700 .75rem/1 "IBM Plex Sans",sans-serif;letter-spacing:.1em;color:var(--teal)}ul,ol{padding-left:1.5rem;max-width:77ch}li{margin:.4rem 0}code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}code{background:var(--code);border-radius:4px;padding:.12rem .3rem;font-size:.86em}pre{background:#102c2f;color:#e8f4ef;border-radius:12px;padding:1.2rem;overflow:auto;font-size:.88rem;line-height:1.65}pre code{background:none;color:inherit;padding:0;font-size:inherit}.cmd{position:relative}.copy{position:absolute;right:.65rem;top:.65rem;background:#dcf2e7;color:#123f3c;border:0;border-radius:6px;padding:.4rem .7rem;font:600 .8rem "IBM Plex Sans",sans-serif;cursor:pointer;min-height:38px}.copy:hover{background:white}.flow{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin:1.5rem 0}.flow span{background:var(--card);border:1px solid var(--line);padding:.5rem .7rem;border-radius:8px;font:600 .84rem "IBM Plex Sans",sans-serif}.flow b{color:var(--teal)}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}table{border-collapse:collapse;width:100%;min-width:620px}th,td{text-align:left;vertical-align:top;padding:.75rem .9rem;border-bottom:1px solid var(--line)}th{background:#eaf1ed;font-weight:700}tr:last-child td{border-bottom:0}.callout{background:var(--warm);border-left:4px solid var(--teal);padding:1rem 1.3rem;border-radius:0 10px 10px 0;max-width:80ch}.callout p:last-child{margin-bottom:0}.inline-list{display:flex;flex-wrap:wrap;gap:.6rem;padding:0;list-style:none}.inline-list li{margin:0;border:1px solid var(--line);background:white;border-radius:6px;padding:.35rem .65rem;font:.84rem "IBM Plex Sans",sans-serif}footer{padding:2rem 0;color:var(--muted);font-size:.84rem}button{font-family:inherit} @media(max-width:900px){.shell{display:block}aside{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:1.1rem 1.3rem}nav{display:flex;gap:.2rem;overflow:auto;margin:.7rem 0 0}nav a{white-space:nowrap;padding:.35rem .6rem}main{padding:0 1.3rem 3rem}.hero{padding:3rem 0}.grid{grid-template-columns:1fr}}@media print{aside,.copy{display:none}.shell{display:block}main{padding:0}section{break-inside:avoid}body{background:white;color:black}pre{white-space:pre-wrap;color:black;background:#eee}}
+    :root{color-scheme:light;--paper:#f4f7f5;--ink:#142c30;--muted:#52666a;--line:#d7e2de;--teal:#087b72;--deep:#092f35;--lime:#d6f36a;--card:#fff;--code:#e9f1ed}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:1.5rem}body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.72 "IBM Plex Sans Thai","IBM Plex Sans",sans-serif}a{color:var(--teal);text-underline-offset:.2em}:focus-visible{outline:3px solid var(--teal);outline-offset:3px}.skip{position:absolute;top:-4rem;left:1rem;background:white;padding:.5rem 1rem;z-index:10}.skip:focus{top:1rem}.shell{max-width:1380px;margin:auto;display:grid;grid-template-columns:245px minmax(0,1fr)}aside{position:sticky;top:0;height:100vh;align-self:start;overflow:auto;border-right:1px solid var(--line);padding:2rem 1.35rem}.brand{font:700 1rem/1.2 "IBM Plex Sans",sans-serif;letter-spacing:.09em;color:var(--deep)}.brand span{display:block;color:var(--teal);font-size:.78rem;margin-top:.3rem}.small{font-size:.8rem;color:var(--muted);line-height:1.6}nav{display:grid;gap:.2rem;margin-top:2rem}nav a{padding:.45rem .6rem;border-radius:7px;text-decoration:none;color:var(--muted)}nav a:hover{background:#e4eeea;color:var(--deep)}main{min-width:0;padding:0 clamp(1.2rem,5vw,5rem) 4rem}.hero{background:var(--deep);color:white;margin:2rem 0 1.5rem;padding:clamp(2rem,6vw,5rem);border-radius:22px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:340px;height:340px;border:1px solid #ffffff28;border-radius:50%;right:-110px;top:-160px;box-shadow:0 0 0 38px #ffffff08,0 0 0 78px #ffffff06}.eyebrow{font:700 .74rem/1.2 "IBM Plex Sans",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--lime)}h1,h2,h3{line-height:1.25;letter-spacing:-.025em}h1{font-size:clamp(2.4rem,5vw,4.6rem);max-width:14ch;margin:.9rem 0 1rem}h2{font-size:clamp(1.7rem,3vw,2.3rem);color:var(--deep);margin:0 0 .7rem}h3{font-size:1.1rem;color:var(--deep);margin:.2rem 0 .45rem}.lead{font-size:1.12rem;color:#d6e8e3;max-width:58ch}.meta{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.6rem}.pill{border:1px solid #ffffff3c;border-radius:99px;padding:.25rem .7rem;font:600 .76rem "IBM Plex Sans",sans-serif;color:#fff}section{padding:2.7rem 0;border-bottom:1px solid var(--line)}.intro{max-width:68ch;color:var(--muted);margin:.5rem 0 1.4rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.2rem}.card p{margin:.3rem 0 0;color:var(--muted)}.num{font:700 .76rem "IBM Plex Sans",sans-serif;color:var(--teal);letter-spacing:.12em}.cmd{position:relative;margin:1rem 0}pre{background:#102e33;color:#e8f4ef;border-radius:12px;padding:1rem 1.2rem;overflow:auto;font-size:.88rem;line-height:1.6}code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}code{background:var(--code);border-radius:4px;padding:.1rem .3rem;font-size:.88em}pre code{background:none;padding:0}.copy{position:absolute;right:.55rem;top:.55rem;background:var(--lime);color:var(--deep);border:0;border-radius:6px;padding:.4rem .7rem;font:600 .77rem "IBM Plex Sans",sans-serif;cursor:pointer;min-height:36px}.flow{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem;margin:1.2rem 0}.flow span{background:#fff;border:1px solid var(--line);border-radius:7px;padding:.4rem .65rem;font:600 .79rem "IBM Plex Sans",sans-serif}.flow b{color:var(--teal)}ul,ol{padding-left:1.35rem;max-width:74ch}li{margin:.35rem 0}.callout{background:#e8f2d4;border-left:4px solid var(--teal);border-radius:0 10px 10px 0;padding:.9rem 1.1rem;max-width:78ch}.callout p:last-child{margin:0}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff}table{border-collapse:collapse;width:100%;min-width:520px}th,td{text-align:left;vertical-align:top;padding:.7rem .85rem;border-bottom:1px solid var(--line)}th{background:#e8f0ec}tr:last-child td{border-bottom:0}.footer{padding:1.8rem 0;color:var(--muted);font-size:.82rem}@media(max-width:800px){.shell{display:block}aside{position:relative;height:auto;padding:1rem 1.2rem;border-right:0;border-bottom:1px solid var(--line)}nav{display:flex;overflow:auto;margin:.7rem 0 0}nav a{white-space:nowrap}main{padding:0 1.2rem 2rem}.hero{margin:1rem 0;border-radius:15px}.grid{grid-template-columns:1fr}}@media print{aside,.copy{display:none}.shell{display:block}main{padding:0}.hero{background:white;color:black;border:1px solid #aaa}.lead{color:#333}section{break-inside:avoid}}
   </style>
 </head>
 <body>
   <a class="skip" href="#main">ข้ามไปเนื้อหา</a>
   <div class="shell">
     <aside aria-label="สารบัญ">
-      <div class="mark">PROJECT <span>HANDOFF SYSTEM</span></div>
-      <p class="small">ระบบงานร่วมสำหรับ repo อื่น<br>อ้างอิง commit 2e8b74d</p>
-      <nav aria-label="ส่วนของคู่มือ">
-        <a href="#why">ภาพรวม</a><a href="#install">ติดตั้ง</a><a href="#files">ไฟล์ที่ได้</a><a href="#daily">ใช้ในแต่ละวัน</a><a href="#states">สถานะงาน</a><a href="#adapt">ปรับกับโปรเจกต์</a><a href="#check">ตรวจผล</a>
-      </nav>
-      <p class="small">ฟอนต์หลัก: IBM Plex Sans Thai และ IBM Plex Sans ผ่าน Google Fonts; เมื่อออฟไลน์ browser จะใช้ sans-serif สำรอง</p>
+      <div class="brand">PROJECT SKILLS<span>WORKFLOW TOOLKIT</span></div>
+      <p class="small">คู่มือสำหรับติดตั้งและปรับ workflow ให้เข้ากับ repository ของคุณ</p>
+      <nav aria-label="หัวข้อในคู่มือ"><a href="#overview">แนวคิด</a><a href="#install">ติดตั้ง skill</a><a href="#setup">ตั้งค่า repository</a><a href="#daily">ทำงานต่อเนื่อง</a><a href="#files">ไฟล์และสถานะ</a><a href="#adapt">ปรับใช้</a></nav>
+      <p class="small">ฟอนต์หลัก: IBM Plex Sans Thai และ IBM Plex Sans</p>
     </aside>
     <main id="main">
-      <header class="hero">
-        <div class="eyebrow">คู่มือติดตั้ง · ใช้ซ้ำได้</div>
-        <h1>ส่งต่องานให้เริ่มต่อได้ทันที</h1>
-        <p class="lead">นำระบบ task, checkpoint, Git state และหลักฐานจาก commit <code>2e8b74d</code> ไปใช้ในโปรเจกต์อื่น โดยไม่พกข้อมูลเฉพาะ Car-eService ไปด้วย</p>
-        <div class="meta"><span class="pill">Node.js + Git</span><span class="pill">ทุก application stack</span><span class="pill">ข้อมูลอยู่ใน repo</span></div>
-      </header>
-      <section id="why">
-        <h2>แนวคิดหลัก</h2>
-        <p>ระบบนี้ตอบคำถามสี่ข้อให้ agent ทุกตัวเหมือนกัน: งานไหนได้รับอนุญาต ใครกำลังทำ ทำถึงไหนแล้ว และผลตรวจอยู่ที่ใด ข้อมูลที่ใช้เริ่มงานอยู่ใน Git และ task file จึงส่งต่อระหว่าง session หรือเครื่องได้เมื่อ commit หรือส่ง patch พร้อมไฟล์ใหม่</p>
-        <div class="grid">
-          <div class="card"><div class="step">01 · AUTHORITY</div><h3>Task file เป็นแหล่งสถานะเดียว</h3><p><code>current.json</code> แค่ชี้งานที่เลือก รายการ backlog ไม่ถือว่าได้รับอนุญาต</p></div>
-          <div class="card"><div class="step">02 · EVIDENCE</div><h3>ปิดงานด้วยหลักฐาน</h3><p>DONE ต้องผ่าน acceptance ทุกข้อและลิงก์ผลตรวจจริง ส่วน release เป็นสถานะแยก</p></div>
-          <div class="card"><div class="step">03 · CONTEXT</div><h3>อ่านเท่าที่ต้องใช้</h3><p>เริ่มจาก AGENTS, task และ Git แล้วเปิด source หรือ pattern ตามงานนั้น</p></div>
-          <div class="card"><div class="step">04 · HANDOFF</div><h3>ฝากขั้นถัดไปที่ลงมือได้</h3><p>checkpoint ระบุ revision, ไฟล์ค้าง, blocker, สิ่งที่ทำแล้ว และ next action</p></div>
-        </div>
-      </section>
-      <section id="install">
-        <h2>ติดตั้งใน repo เป้าหมาย</h2>
-        <p>ให้ Codex ใช้สกิล <code>$project-handoff-system</code> พร้อมระบุ path ของ repo หรือรันตัวติดตั้งจากสกิลนี้โดยตรง ตัวติดตั้งจะตรวจไฟล์ชนก่อนเขียนและเริ่มต้นด้วย task registry ว่าง</p>
-        <div class="cmd"><button class="copy" type="button" data-copy="install-commands" aria-label="คัดลอกคำสั่งติดตั้ง">คัดลอก</button><pre id="install-commands"><code>node ~/.codex/skills/project-handoff-system/scripts/install.mjs --target /absolute/path/to/repo --dry-run
-node ~/.codex/skills/project-handoff-system/scripts/install.mjs --target /absolute/path/to/repo</code></pre></div>
-        <ol><li>ดูรายการไฟล์ใน dry run และตรวจว่า repo มีระบบงานเดิมหรือไม่</li><li>รันคำสั่งติดตั้งจริง</li><li>เปิด Git diff แล้วปรับหัวข้อที่เพิ่มใน <code>AGENTS.md</code> ให้ตรงกับกติกาของโปรเจกต์</li><li>รันคำสั่งตรวจด้านล่าง</li></ol>
-        <div class="callout"><p>หากมี <code>docs/work/</code> หรือ package script ชื่อเดียวกันอยู่แล้ว ตัวติดตั้งจะหยุดก่อนเขียน ให้ใช้สกิลช่วย map ระบบเดิมและกำหนดแหล่งข้อมูลหลัก ไม่สร้าง tracker ซ้ำโดยเงียบ ๆ</p></div>
-      </section>
-      <section id="files">
-        <h2>สิ่งที่ตัวติดตั้งสร้าง</h2>
-        <div class="table-wrap"><table><thead><tr><th>ไฟล์</th><th>หน้าที่</th></tr></thead><tbody>
-          <tr><td><code>AGENTS.md</code></td><td>เพิ่มกติกาเริ่ม session และขอบเขตการทำงาน โดยเก็บข้อความเดิมไว้</td></tr>
-          <tr><td><code>docs/work/current.json</code></td><td>ชี้ task ที่เลือกหรือ <code>null</code></td></tr>
-          <tr><td><code>docs/work/tasks/</code></td><td>เก็บ task JSON แต่ละรายการเป็นเจ้าของสถานะของตน</td></tr>
-          <tr><td><code>docs/work/templates/</code></td><td>ต้นแบบ task และ session record</td></tr>
-          <tr><td><code>docs/work/README.md</code></td><td>กติกาสถานะ การรับงาน และหลักฐาน</td></tr>
-          <tr><td><code>scripts/project-workflow.mjs</code></td><td>คำสั่งอ่านสถานะและตรวจความสอดคล้อง</td></tr>
-          <tr><td><code>docs/project-handoff-guide.html</code></td><td>คู่มือนี้ ใช้สอนคน ไม่เก็บสถานะสด</td></tr>
-        </tbody></table></div>
-        <p>ตัวติดตั้งเพิ่ม npm scripts ใน <code>package.json</code> และสร้าง adapter สำหรับ Claude Code, Gemini CLI, Copilot, Cursor, Continue, Cline, Roo Code และ Aider เมื่อยังไม่มีไฟล์เหล่านั้น ส่วน Codex และ Windsurf ใช้ <code>AGENTS.md</code> ได้โดยตรง ดู path และเอกสารอ้างอิงที่ <a href="agent-compatibility.md">ตารางรองรับ agent</a></p>
-        <div class="callout"><p><code>AGENTS.md</code> เป็นแหล่งกติกาหลักเพียงแห่งเดียว ไฟล์ agent ที่มีอยู่แล้วจะไม่ถูกเขียนทับ ให้เพิ่มลิงก์ไปยัง <code>AGENTS.md</code> ด้วยตนเอง หาก agent นั้นยังไม่ได้อ่านไฟล์นี้</p></div>
-      </section>
-      <section id="daily">
-        <h2>ลำดับงานในแต่ละวัน</h2>
-        <div class="flow" aria-label="ลำดับงาน"><span>resume</span><b>→</b><span>ตรวจ Git</span><b>→</b><span>claim</span><b>→</b><span>ทำงาน</span><b>→</b><span>checkpoint</span><b>→</b><span>check</span></div>
-        <div class="cmd"><button class="copy" type="button" data-copy="daily-commands" aria-label="คัดลอกคำสั่งประจำวัน">คัดลอก</button><pre id="daily-commands"><code>npm run project:resume  # งานที่เลือก + checkpoint + Git จริง
-npm run project:status  # รายการงานจาก task files
-npm run project:check   # ตรวจโครงสร้างและลิงก์หลักฐาน</code></pre></div>
-        <p>เมื่อไม่มี task ที่เลือก ให้ใช้คำขอของผู้ใช้เป็นตัวกำหนดงานใหม่ เมื่อมี task ที่อนุมัติแล้ว ให้ระบุ executor, session, branch, base commit และ next action ก่อนแก้ source หลังทำขั้นสำคัญให้เขียน checkpoint ทันที</p>
-        <h3>ก่อนจบ session</h3>
-        <ul><li>บันทึกสิ่งที่ทำ ไฟล์ที่เปลี่ยน และ Git revision จริง</li><li>ระบุผล validation ตามคำสั่งที่รันจริง พร้อมไฟล์หลักฐาน</li><li>ระบุ blocker และขั้นถัดไปแบบลงมือได้</li><li>รัน <code>project:check</code> หลังอัปเดต task/session</li></ul>
-      </section>
-      <section id="states">
-        <h2>ใช้สถานะให้ตรงความจริง</h2>
-        <div class="table-wrap"><table><thead><tr><th>สถานะ</th><th>ใช้เมื่อ</th></tr></thead><tbody>
-          <tr><td>BACKLOG</td><td>บันทึกไว้พิจารณา ยังไม่อนุญาตให้เริ่ม</td></tr><tr><td>READY</td><td>อนุมัติขอบเขตและ dependency พร้อม</td></tr><tr><td>IN_PROGRESS</td><td>executor รับงานและกำลังทำ</td></tr><tr><td>VERIFY</td><td>งานมีแล้ว แต่ยังขาดผลตรวจหรือการยืนยัน acceptance</td></tr><tr><td>BLOCKED</td><td>ต้องรอคำตอบหรือสถานะภายนอกที่ทำต่อไม่ได้</td></tr><tr><td>PAUSED</td><td>หยุดชั่วคราวพร้อม checkpoint กลับมาทำต่อได้</td></tr><tr><td>DONE</td><td>acceptance ทุกข้อ PASS มีหลักฐานแล้ว</td></tr>
-        </tbody></table></div>
-        <p>สถานะ release อยู่ต่างหาก งาน DONE ไม่ได้แปลว่า deploy แล้ว และไม่อนุญาตให้เปลี่ยนราคา สิทธิ์ หรือบริการภายนอกเอง</p>
-      </section>
-      <section id="adapt">
-        <h2>ปรับให้เข้ากับโปรเจกต์อื่น</h2>
-        <p>เริ่มจากชื่อคำสั่ง, โครงสร้าง source, วิธีทดสอบ, ผู้ตัดสิน acceptance และลิงก์เอกสารที่ repo มีจริง เติมรายละเอียดเฉพาะโปรเจกต์ใน <code>AGENTS.md</code> หรือเอกสารอ่านตามความจำเป็น อย่ายก Firebase rules, backlog, Graphify output หรือข้อกำหนดธุรกิจของ Car-eService ไปใช้</p>
-        <ul class="inline-list"><li>Node / Python / Go / Rust</li><li>เว็บ / โมบาย / backend</li><li>repo เดี่ยว / monorepo</li></ul>
-        <p>ตัว CLI ต้องใช้ Node.js และ Git แม้ตัวแอปจะเขียนภาษาอื่น หาก repo มี task tracker เดิม ให้กำหนดว่าไฟล์ใดเป็นแหล่งสถานะหลักก่อนติดตั้ง หากหลาย agent ต้องทำพร้อมกัน ให้แยก owner หรือ worktree เพราะ validator นี้ไม่ใช่ lock</p>
-      </section>
-      <section id="check">
-        <h2>ตรวจว่าพร้อมใช้</h2>
-        <div class="cmd"><button class="copy" type="button" data-copy="check-commands" aria-label="คัดลอกคำสั่งตรวจ">คัดลอก</button><pre id="check-commands"><code>npm run project:check
-npm run project:resume
-git status --short</code></pre></div>
-        <p><code>project:check</code> ตรวจ ID, สถานะ, dependency, path อ้างอิง และหลักฐานที่ลิงก์ไว้ แต่ไม่ตรวจว่าผู้ใช้อนุมัติจริงหรือผลทดสอบเป็นจริง ให้คนอ่าน session record และ diff ก่อนปิดงาน</p>
-      </section>
-      <footer>Project Handoff System · คู่มือทั่วไปจาก commit 2e8b74dc9e6fafb6a0f1762adc8ebe9ce1500815 · เปิดเป็นไฟล์ HTML ได้โดยตรง</footer>
+      <header class="hero"><div class="eyebrow">One shared workflow · Any coding agent</div><h1>ให้งานเดินต่อได้ แม้เปลี่ยน session</h1><p class="lead">Project Handoff ช่วยเก็บงานที่กำลังทำ การตัดสินใจ จุดตรวจ และขั้นถัดไปไว้กับ Git repository เพื่อให้คนหรือ agent อีกตัวกลับมาทำต่อได้จากข้อมูลจริง</p><div class="meta"><span class="pill">Git-backed</span><span class="pill">เลือกติดตั้งเป็น skill</span><span class="pill">ปรับได้ตามโปรเจกต์</span></div></header>
+      <section id="overview"><h2>แนวคิดหลัก</h2><p class="intro">เก็บบริบทการทำงานในไฟล์ที่ตรวจสอบได้ ไม่ฝากสถานะไว้กับบทสนทนาหรือ agent ตัวใดตัวหนึ่ง</p><div class="grid">
+        <article class="card"><div class="num">01 / TASK</div><h3>ระบุขอบเขตและผู้รับผิดชอบ</h3><p>แต่ละ task บันทึกเป้าหมาย สถานะ acceptance และผู้ทำงานไว้ใน repo</p></article>
+        <article class="card"><div class="num">02 / CHECKPOINT</div><h3>จดจุดที่กลับมาทำต่อได้</h3><p>เก็บ revision, ไฟล์ที่เปลี่ยน blocker และ next action แบบเฉพาะเจาะจง</p></article>
+        <article class="card"><div class="num">03 / EVIDENCE</div><h3>อ้างผลตรวจที่เกิดขึ้นจริง</h3><p>เชื่อมผล validation กับ task เพื่อให้การส่งต่องานมีบริบทตรวจสอบได้</p></article>
+        <article class="card"><div class="num">04 / HANDOFF</div><h3>ใช้ร่วมกันข้าม agent</h3><p>กติกาและข้อมูลอยู่ใน repository; agent ที่เข้ามาใหม่อ่านจากแหล่งเดียวกัน</p></article>
+      </div></section>
+      <section id="install"><h2>ติดตั้ง skill</h2><p class="intro">ใช้ Skills CLI เพื่อเลือก agent และตำแหน่งติดตั้ง หรือเลือกติดตั้งเฉพาะ agent ที่ใช้จริง</p><div class="cmd"><button class="copy" type="button" data-copy="install" aria-label="คัดลอกคำสั่ง">คัดลอก</button><pre id="install"><code>npx skills@latest add Dev-Anan/project-handoff-system</code></pre></div><ol><li>เลือก skill ชื่อ <code>project-handoff-system</code></li><li>เลือก coding agent และระดับการติดตั้งตามที่ต้องการ</li><li>เปิด repository เป้าหมายใน agent นั้น</li><li>ขอให้ agent ใช้ skill เพื่อตรวจและตั้งค่า repository</li></ol><p>ตัวอย่างคำขอ: <code>Use the project-handoff-system skill to inspect and set up this repository.</code></p></section>
+      <section id="setup"><h2>ตั้งค่า repository เป้าหมาย</h2><p class="intro">เริ่มด้วยการตรวจบริบทเดิมก่อนสร้างไฟล์ เพื่อคง tracker และกติกาที่โปรเจกต์ใช้อยู่</p><div class="flow" aria-label="ลำดับตั้งค่า"><span>inspect</span><b>→</b><span>dry run</span><b>→</b><span>review</span><b>→</b><span>install</span><b>→</b><span>adapt</span></div><div class="cmd"><button class="copy" type="button" data-copy="commands" aria-label="คัดลอกคำสั่ง">คัดลอก</button><pre id="commands"><code>node &lt;skill-dir&gt;/scripts/install.mjs --target /absolute/path/to/repository --dry-run
+node &lt;skill-dir&gt;/scripts/install.mjs --target /absolute/path/to/repository</code></pre></div><div class="callout"><p>ตัวติดตั้งจะหยุดเมื่อพบ tracker หรือไฟล์ชนที่ต้องตัดสินใจ ให้ map ระบบเดิมและเลือกแหล่งสถานะหลักก่อนติดตั้ง เพื่อไม่ให้มี task database ซ้ำกัน</p></div></section>
+      <section id="daily"><h2>เริ่มและส่งต่องาน</h2><p class="intro">คำสั่งที่ติดตั้งมาช่วยอ่านงานปัจจุบัน สรุป task และตรวจความครบถ้วนของไฟล์</p><div class="cmd"><button class="copy" type="button" data-copy="daily" aria-label="คัดลอกคำสั่ง">คัดลอก</button><pre id="daily"><code>npm run project:resume
+npm run project:status
+npm run project:check</code></pre></div><ol><li>ก่อนแก้ไข ให้เทียบ task checkpoint กับ branch, revision และ working tree จริง</li><li>ระบุผู้ทำงาน, session, base revision และ next action ใน task</li><li>หลังความคืบหน้าสำคัญ บันทึก checkpoint พร้อมไฟล์ที่เปลี่ยน</li><li>ก่อนส่งต่อ เขียน session record แนบ validation ที่รันจริง และตรวจความสอดคล้อง</li></ol></section>
+      <section id="files"><h2>โครงสร้างข้อมูล</h2><div class="table-wrap"><table><thead><tr><th>ตำแหน่ง</th><th>หน้าที่</th></tr></thead><tbody><tr><td><code>AGENTS.md</code></td><td>ทางเข้าและข้อกำหนดเฉพาะของ repository</td></tr><tr><td><code>docs/work/tasks/</code></td><td>task records เป็นเจ้าของสถานะและ acceptance</td></tr><tr><td><code>docs/work/current.json</code></td><td>ชี้ task ที่เลือก; ไม่เก็บสถานะซ้ำ</td></tr><tr><td><code>docs/work/sessions/</code></td><td>บันทึกความคืบหน้า ผลตรวจ และขั้นถัดไป</td></tr><tr><td><code>scripts/project-workflow.mjs</code></td><td>คำสั่ง resume, status และ check</td></tr></tbody></table></div><p>สถานะ task ใช้สื่อความจริง เช่น <code>BACKLOG</code> ยังไม่ใช่การอนุมัติเริ่มงาน และ <code>DONE</code> ต้องมี acceptance กับหลักฐานครบ การ release บันทึกแยกต่างหาก</p></section>
+      <section id="adapt"><h2>ปรับให้เข้ากับแต่ละโปรเจกต์</h2><p class="intro">workflow เป็นโครงกลาง ส่วนคำสั่ง โครงสร้าง source และข้อกำหนดของงานให้ยึดตาม repository ปลายทาง</p><ul><li>ใส่คำสั่งตรวจที่โปรเจกต์ใช้อยู่จริง ไม่เพิ่มขั้นตอนสมมติ</li><li>เชื่อมเอกสารสถาปัตยกรรมและรูปแบบโค้ดที่เกี่ยวกับงาน</li><li>รักษา instructions และ configuration เดิมของแต่ละ agent</li><li>ถ้ามีหลาย agent ทำพร้อมกัน ให้แยกผู้รับผิดชอบและ Git worktree ให้ชัด</li></ul><div class="callout"><p>ตัวตรวจเช็กความครบถ้วนของโครงสร้างและลิงก์ได้ แต่ไม่สามารถยืนยันแทนคนได้ว่าหลักฐานเป็นจริงหรือมีการอนุมัติแล้ว</p></div></section>
+      <footer class="footer">Project Skills · Project Handoff · HTML guide สำหรับเปิดอ่านและส่งต่อได้โดยตรง</footer>
     </main>
   </div>
   <script>
     document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
-      const text = document.getElementById(button.dataset.copy).innerText;
-      try { await navigator.clipboard.writeText(text); button.textContent = 'คัดลอกแล้ว'; }
-      catch { button.textContent = 'เลือกข้อความแล้วคัดลอก'; const range = document.createRange(); range.selectNodeContents(document.getElementById(button.dataset.copy)); getSelection().removeAllRanges(); getSelection().addRange(range); }
+      const source = document.getElementById(button.dataset.copy);
+      try { await navigator.clipboard.writeText(source.innerText); button.textContent = 'คัดลอกแล้ว'; }
+      catch { button.textContent = 'เลือกข้อความแล้วคัดลอก'; const range = document.createRange(); range.selectNodeContents(source); getSelection().removeAllRanges(); getSelection().addRange(range); }
       setTimeout(() => { button.textContent = 'คัดลอก'; }, 2200);
     }));
   </script>

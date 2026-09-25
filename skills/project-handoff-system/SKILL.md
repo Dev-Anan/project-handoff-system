@@ -1,25 +1,40 @@
 ---
 name: project-handoff-system
-description: Install or adapt a Git-backed task, checkpoint, and agent handoff workflow in another repository, based on Car-eService commit 2e8b74d. Use when a user asks to set up project:resume/status/check, shared AGENTS.md instructions, task records, or a portable project-management guide.
+description: Set up or adapt a Git-backed task and session handoff workflow in a software repository. Use when a user wants durable task ownership, checkpoints, evidence, or agent-to-agent continuity stored in Git.
 ---
 
 # Project handoff system
 
-Use this skill to give a repository the reusable workflow introduced by commit `2e8b74dc9e6fafb6a0f1762adc8ebe9ce1500815`. The portable core is an agent entrypoint, one selected task pointer, task files, session evidence, a validator/resume command, and a human guide. The original commit also changed Car-eService documentation and generated files; those are not part of the portable core.
+Give a repository a small, inspectable workflow for selecting authorized work, recording progress, and handing it to another session or agent.
 
-## Set up a target repository
+## Set up a repository
 
-1. Inspect its root instructions, package scripts, Git state, task trackers, and existing `docs/work/` before writing. Preserve existing ownership and task IDs. Do not treat backlog entries as authorized work.
-2. If no equivalent workflow exists, run `node <skill-dir>/scripts/install.mjs --target <absolute-repository-path> --dry-run`; review the plan, then run without `--dry-run`. The installer refuses to overwrite existing workflow files or conflicting npm scripts. It creates adapters for common agent formats when absent; see [agent compatibility](references/agent-compatibility.md). If it reports a conflict, adapt the repository manually using [the portable design](references/design.md).
-3. Tailor the appended `AGENTS.md` section to the project's real commands and constraints. Existing instructions remain authoritative. Add project-specific read-on-demand links rather than copying Car-eService rules.
-4. Run `npm run project:check` (or `node scripts/project-workflow.mjs check`), then `npm run project:resume`. Inspect the generated `docs/project-handoff-guide.html` and replace any generic business examples if the user needs domain-specific guidance.
-5. Create task records only for actual user-authorized work. Claim before editing; checkpoint after meaningful progress. Keep release/deployment authorization separate from task completion.
+1. Inspect the Git state, root instructions, package scripts, existing task tracker, and relevant workflow files. Read only what is needed. Preserve unrelated work.
+2. If a task system already exists, map its status, ownership, and evidence fields before changing files. Keep one clear source of task state; do not create a parallel tracker by default.
+3. If no equivalent workflow exists, run the included installer first in dry-run mode:
 
-The installed workflow needs Node.js and Git. It works with non-Node application stacks; the installer adds a small `package.json` only when the target does not already have one. `AGENTS.md` remains canonical, and existing agent-specific instruction files are preserved for manual integration. Read [the portable design](references/design.md) when adapting an existing task system or diagnosing validator failures.
+   ```sh
+   node <skill-dir>/scripts/install.mjs --target <absolute-repository-path> --dry-run
+   ```
 
-## Boundaries
+   Review the proposed files and collisions. Run it without `--dry-run` only when the user asked to install or adapt the workflow. Existing instructions and configuration are preserved; conflicts require a project-specific integration.
 
-- Never import Car-eService's Firebase rules, product policy, user data, Graphify output, or historical backlog into another project.
-- Never overwrite an existing `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, task registry, or package script. Resolve conflicts with the user-authorized target scope.
-- The validator checks structure and links. It cannot prove that evidence is true, acceptance was approved, or a release occurred.
-- The HTML guide is educational; task JSON files remain the source of task state.
+4. Tailor the shared instructions to the repository's actual source layout, constraints, and validation commands. Keep product-specific rules in that repository rather than in this skill.
+5. Run `npm run project:check` and `npm run project:resume` in the target repository. Review the resulting diff and update the target's instructions before handing it off.
+
+## Use the workflow
+
+- Treat the user's request as the authority for scope. A backlog item alone does not authorize implementation.
+- Keep task status in each task record; use the current-task file only as a pointer.
+- Record the real Git revision, changed files, validation results, blockers, and next action at checkpoints.
+- Mark work complete only when its acceptance checks have evidence. Deployment and release remain separate actions that need their own authorization.
+- Commit or transfer the task records and source changes when another machine or agent needs to continue.
+
+## References
+
+- Read [the workflow reference](assets/workflow-readme.md) for task states, templates, and handoff conventions.
+- Read [the compatibility guide](references/agent-compatibility.md) when adapting agent instruction files.
+- Read [the design notes](references/design.md) when integrating an existing tracker or changing the workflow structure.
+- Open [the HTML guide](assets/project-handoff-guide.html) when a human-readable walkthrough is useful.
+
+The helper requires Node.js and Git. It can be added to repositories that use other application languages. It validates structure and links; it cannot prove the truth of evidence or user approval.
